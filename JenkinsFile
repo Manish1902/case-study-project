@@ -1,0 +1,48 @@
+pipeline {
+    agent any  // This specifies that Jenkins can run the pipeline on any available agent
+
+    environment {
+        MAVEN_HOME = '/usr/local/maven' // Update this path if necessary
+        JAVA_HOME = '/usr/local/jdk-21'  // Update this to your JDK path if needed
+        PATH = "${env.PATH}:${MAVEN_HOME}/bin:${JAVA_HOME}/bin"
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                // Checkout the code from your Git repository
+                checkout scm
+            }
+        }
+        
+        stage('Maven Clean and Build') {
+            steps {
+                // Run Maven clean and install to compile and build the project
+                script {
+                    sh "${MAVEN_HOME}/bin/mvn clean install"
+                }
+            }
+        }
+
+        stage('Run Application') {
+            steps {
+                // Run the application using Maven exec plugin
+                script {
+                    sh "${MAVEN_HOME}/bin/mvn exec:java -Dexec.mainClass=com.example.App"  // Replace with your main class
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+            // Actions to take if the build is successful
+            echo 'Build and Execution Successful'
+        }
+
+        failure {
+            // Actions to take if the build fails
+            echo 'Build or Execution Failed'
+        }
+    }
+}
