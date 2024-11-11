@@ -5,7 +5,7 @@ pipeline {
         MAVEN_HOME = 'C:/Program Files/Apache Software Foundation/apache-maven-3.9.9'  // Update this path if necessary
         JAVA_HOME = 'C:/Program Files/Java/jdk-21'  // Update this to your JDK path if needed
         TOMCAT_HOME = 'C:/Program Files/Apache Software Foundation/Tomcat 11.0_Tomcat11_Temp'  // Update with your Tomcat installation path
-        PATH = "${env.PATH};\"${MAVEN_HOME}/bin\";\"${JAVA_HOME}/bin\""
+        PATH = "${env.PATH};${MAVEN_HOME}/bin;${JAVA_HOME}/bin"
     }
 
     stages {
@@ -20,48 +20,6 @@ pipeline {
             steps {
                 // Run Maven clean and install to compile and build the project
                 bat "\"${MAVEN_HOME}/bin/mvn\" clean install"
-            }
-        }
-
-        stage('Install Dependencies') {
-            steps {
-                // Install Node dependencies
-                sh 'npm install'
-            }
-        }
-
-        stage('Build') {
-            steps {
-                // Run build command (you can customize for Android or iOS if needed)
-                sh 'npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/main.jsbundle'
-            }
-        }
-
-        stage('Test') {
-            steps {
-                // Run tests with Jest and output results in JUnit format
-                sh 'npm test -- --ci --reporters=jest-junit'
-            }
-            post {
-                always {
-                    junit 'path/to/test-results.xml' // Replace with actual Jest output path
-                }
-            }
-        }
-
-        stage('Security Scan') {
-            steps {
-                // Placeholder for Veracode or other security testing
-                echo 'Running security scans...'
-                // Add actual Veracode commands or API calls here
-            }
-        }
-
-        stage('Deploy') {
-            steps {
-                // Deploy built artifacts to development environment
-                echo 'Deploying to Tomcat server...'
-                // Commands for deployment to Tomcat or other environment
             }
         }
 
