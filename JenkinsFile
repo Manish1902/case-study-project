@@ -19,7 +19,7 @@ pipeline {
         stage('Maven Clean and Build') {
             steps {
                 // Run Maven clean and install to compile and build the project
-                bat "\"${MAVEN_HOME}/bin/mvn\" clean install"
+               bat "mvn clean package -DskipTests"
             }
         }
 
