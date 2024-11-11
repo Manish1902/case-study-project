@@ -32,6 +32,14 @@ pipeline {
             }
         }
 
+        stage('Restart Tomcat') {
+            steps {
+                // Restart Tomcat to ensure the application is deployed
+                bat "\"${TOMCAT_HOME}\\bin\\shutdown.bat\""
+                bat "\"${TOMCAT_HOME}\\bin\\startup.bat\""
+            }
+        }
+
         stage('Run Application') {
             steps {
                 // Run the application using Maven exec plugin
