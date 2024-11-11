@@ -5,7 +5,7 @@ pipeline {
         MAVEN_HOME = 'C:/Program Files/Apache Software Foundation/apache-maven-3.9.9'  // Update this path if necessary
         JAVA_HOME = 'C:/Program Files/Java/jdk-21'  // Update this to your JDK path if needed
         TOMCAT_HOME = 'C:/Program Files/Apache Software Foundation/Tomcat 11.0_Tomcat11_Temp'  // Update with your Tomcat installation path
-        PATH = "${env.PATH};${MAVEN_HOME}/bin;${JAVA_HOME}/bin"
+        PATH = "${env.PATH};\"${MAVEN_HOME}/bin\";\"${JAVA_HOME}/bin\""
     }
 
     stages {
@@ -19,7 +19,7 @@ pipeline {
         stage('Maven Clean and Build') {
             steps {
                 // Run Maven clean and install to compile and build the project
-                bat "${MAVEN_HOME}/bin/mvn clean install"
+                bat "\"${MAVEN_HOME}/bin/mvn\" clean install"
             }
         }
 
@@ -27,7 +27,7 @@ pipeline {
             steps {
                 // Deploy the build folder to Tomcat
                 bat """
-                xcopy /s /e /i /y /q target\\your-app.war "${TOMCAT_HOME}\\webapps\\your-app.war"
+                xcopy /s /e /i /y /q target\\your-app.war \"${TOMCAT_HOME}\\webapps\\your-app.war\"
                 """
             }
         }
@@ -35,7 +35,7 @@ pipeline {
         stage('Run Application') {
             steps {
                 // Run the application using Maven exec plugin
-                bat "${MAVEN_HOME}/bin/mvn exec:java -Dexec.mainClass=com.example.App"  // Replace with your main class
+                bat "\"${MAVEN_HOME}/bin/mvn\" exec:java -Dexec.mainClass=com.example.App"  // Replace with your main class
             }
         }
 
