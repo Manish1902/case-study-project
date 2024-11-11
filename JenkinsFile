@@ -2,8 +2,8 @@ pipeline {
     agent any  // This specifies that Jenkins can run the pipeline on any available agent
 
     environment {
-        MAVEN_HOME = 'C:\\path\\to\\maven'  // Update this path if necessary
-        JAVA_HOME = 'C:\\path\\to\\jdk-21'  // Update this to your JDK path if needed
+        MAVEN_HOME = 'C:\Program Files\Apache Software Foundation\apache-maven-3.9.9'  // Update this path if necessary
+        JAVA_HOME = 'C:\Program Files\Java\jdk-21'  // Update this to your JDK path if needed
         TOMCAT_HOME = 'C:\\Program Files\\Apache Software Foundation\\Tomcat 11.0_Tomcat11_Temp'  // Update with your Tomcat installation path
         PATH = "${env.PATH};${MAVEN_HOME}\\bin;${JAVA_HOME}\\bin"
     }
