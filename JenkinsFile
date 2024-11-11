@@ -23,6 +23,48 @@ pipeline {
             }
         }
 
+        stage('Install Dependencies') {
+            steps {
+                // Install Node dependencies
+                sh 'npm install'
+            }
+        }
+
+        stage('Build') {
+            steps {
+                // Run build command (you can customize for Android or iOS if needed)
+                sh 'npx react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/main.jsbundle'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                // Run tests with Jest and output results in JUnit format
+                sh 'npm test -- --ci --reporters=jest-junit'
+            }
+            post {
+                always {
+                    junit 'path/to/test-results.xml' // Replace with actual Jest output path
+                }
+            }
+        }
+
+        stage('Security Scan') {
+            steps {
+                // Placeholder for Veracode or other security testing
+                echo 'Running security scans...'
+                // Add actual Veracode commands or API calls here
+            }
+        }
+
+        stage('Deploy') {
+            steps {
+                // Deploy built artifacts to development environment
+                echo 'Deploying to Tomcat server...'
+                // Commands for deployment to Tomcat or other environment
+            }
+        }
+
         stage('Deploy to Tomcat') {
             steps {
                 // Deploy the build folder to Tomcat
