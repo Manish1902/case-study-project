@@ -1,4 +1,4 @@
-# Created at 2024-11-11T15:53:00.644
+# Created at 2024-11-11T16:27:31.610
 Boot Manifest-JAR contains absolute paths in classpath 'D:\Coding\Capstone-DevOps\case-study-project\target\test-classes'
 Hint: <argLine>-Djdk.net.URLClassPath.disableClassPathURLCheck=true</argLine>
 'other' has different root
