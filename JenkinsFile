@@ -39,24 +39,17 @@ pipeline {
                 bat "\"${TOMCAT_HOME}\\bin\\startup.bat\""
             }
         }
-
-        stage('Run Application') {
-            steps {
-                // Run the application using Maven exec plugin
-                bat "\"${MAVEN_HOME}/bin/mvn\" exec:java -Dexec.mainClass=com.example.App"  // Replace with your main class
-            }
-        }
     }
 
     post {
         success {
             // Actions to take if the build is successful
-            echo 'Build and Execution Successful'
+            echo 'Build and Deployment Successful'
         }
 
         failure {
             // Actions to take if the build fails
-            echo 'Build, Deployment, or Execution Failed!'
+            echo 'Build or Deployment Failed!'
         }
     }
 }
