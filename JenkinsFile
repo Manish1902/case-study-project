@@ -27,7 +27,7 @@ pipeline {
             steps {
                 // Deploy the build folder to Tomcat
                 bat """
-                xcopy /s /e /i /y /q target\\case-study-project-1.0.0.war \"${TOMCAT_HOME}\\webapps\\case-study-project.war\"
+                xcopy /s /e /i /y /q /F target\\case-study-project-1.0.0.war \"${TOMCAT_HOME}\\webapps\\case-study-project.war\"
                 """
             }
         }
